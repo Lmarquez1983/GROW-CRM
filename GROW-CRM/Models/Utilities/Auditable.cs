@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GROW_CRM.Models
+namespace GROW_CRM.Models.Utilities
 {
     public abstract class Auditable : IAuditable
     {
