@@ -1,3 +1,4 @@
+using GROW_CRM.Models;
 using GROW_CRM.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -31,9 +32,55 @@ namespace GROW_CRM.Data
             UserName = UserName ?? "Unknown";
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuild)
-        {
+        //Datasets
+        public DbSet<DietaryRestriction> DietaryRestrictions { get; set; }
 
+        public DbSet<DietaryRestrictionMember> DietaryRestrictionMembers { get; set; }
+
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+
+        public DbSet<Gender> Genders { get; set; }
+
+        public DbSet<Household> Households { get; set; }
+
+        public DbSet<HouseholdDocument> HouseholdDocuments { get; set; }
+
+        public DbSet<HouseholdNotification> HouseholdNotifications { get; set; }
+
+        public DbSet<IncomeSituation> IncomeSituations { get; set; }
+
+        public DbSet<Item> Items { get; set; }        
+
+        public DbSet<Member> Members { get; set; }        
+
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<NotificationType> NotificationTypes { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+
+        public DbSet<Province> Provinces { get; set; }
+
+        //Methods
+
+        //Model Builder Event
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("GROW");
+
+            //Adding Composite Keys
+            modelBuilder.Entity<DietaryRestrictionMember>()
+                .HasKey(dm => new { dm.MemberID, dm.DietaryRestrictionID });
+
+            modelBuilder.Entity<HouseholdNotification>()
+                .HasKey(hn => new { hn.HouseholdID, hn.NotificationID });
+
+            //Cascading Delete Restriction
+            
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

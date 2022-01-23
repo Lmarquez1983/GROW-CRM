@@ -1,11 +1,8 @@
 namespace GROW_CRM.Models
 {
     public class HouseholdNotification
-    {
-        //Fields
-        public int ID { get; set; }
-
-        //Foreign Keys
+    {        
+        //Composite Keys
 
         public int HouseholdID { get; set; }
 
@@ -14,4 +11,5 @@ namespace GROW_CRM.Models
         public int NotificationID { get; set; }
 
         public Notification Notification { get; set; }
+    }
 }
