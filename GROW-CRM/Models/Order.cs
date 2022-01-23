@@ -1,9 +1,10 @@
+using GROW_CRM.Models.Utilities;
 using System;
 using System.Collections.Generic;
 
 namespace GROW_CRM.Models
 {
-    public class Order
+    public class Order : Auditable
     {
         public Order()
         {
@@ -21,10 +22,7 @@ namespace GROW_CRM.Models
 
         public int Total { get; set; }
         
-        //Foreign Keys
-        public int HouseholdID { get; set; }
-
-        public Household Household { get; set; }
+        //Foreign Keys        
 
         public int MemberID { get; set; }
 

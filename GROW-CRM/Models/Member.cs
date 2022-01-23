@@ -1,10 +1,11 @@
+using GROW_CRM.Models.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GROW_CRM.Models
 {
-    public class Member
+    public class Member : Auditable 
     {
 
         //Constructor

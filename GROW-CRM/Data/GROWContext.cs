@@ -51,7 +51,9 @@ namespace GROW_CRM.Data
 
         public DbSet<Item> Items { get; set; }        
 
-        public DbSet<Member> Members { get; set; }        
+        public DbSet<Member> Members { get; set; }   
+        
+        public DbSet<Message> Messages { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
 
@@ -79,8 +81,75 @@ namespace GROW_CRM.Data
             modelBuilder.Entity<HouseholdNotification>()
                 .HasKey(hn => new { hn.HouseholdID, hn.NotificationID });
 
-            //Cascading Delete Restriction
             
+
+            //Cascading Delete Behavior
+            
+            //DietaryRestriction-Member
+            modelBuilder.Entity<DietaryRestrictionMember>()
+                .HasOne(drm => drm.DietaryRestriction)
+                .WithMany(dr => dr.DietaryRestrictionMembers)
+                .HasForeignKey(drm => drm.DietaryRestrictionID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //HouseHold
+            modelBuilder.Entity<Household>()
+                .HasOne(h => h.Province)
+                .WithMany(p => p.Households)
+                .HasForeignKey(h => h.ProvinceID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //HouseHoldDocuments
+            modelBuilder.Entity<HouseholdDocument>()
+                .HasOne(hd => hd.Household)
+                .WithMany(h => h.HouseholdDocuments)
+                .HasForeignKey(hd => hd.HouseholdID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<HouseholdDocument>()
+                .HasOne(hd => hd.DocumentType)
+                .WithMany(dt => dt.HouseholdDocuments)
+                .HasForeignKey(hd => hd.DocumentTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Members
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.Gender)
+                .WithMany(g => g.Members)
+                .HasForeignKey(m => m.GenderID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.Household)
+                .WithMany(h => h.Members)
+                .HasForeignKey(m => m.HouseholdID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.IncomeSituation)
+                .WithMany(i => i.Members)
+                .HasForeignKey(m => m.IncomeSituationID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Order
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Member)
+                .WithMany(m => Orders)
+                .HasForeignKey(o => o.MemberID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.PaymentType)
+                .WithMany(pt => pt.Orders)
+                .HasForeignKey(o => o.PaymentTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Order-Item            
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Item)
+                .WithMany(i => i.OrderItems)
+                .HasForeignKey(oi => oi.ItemID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

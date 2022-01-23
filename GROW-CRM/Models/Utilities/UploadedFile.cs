@@ -2,7 +2,7 @@
 
 namespace GROW_CRM.Models.Utilities
 {
-    public class UploadedFile
+    public class UploadedFile : Auditable
     {
         public UploadedFile()
         {

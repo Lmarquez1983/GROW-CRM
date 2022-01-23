@@ -12,16 +12,16 @@ namespace GROW_CRM.Models
         }
 
         //Fields
-        public int ID { get; set; }
-
-        public string Message { get; set; }
-
-        public DateTime Date { get; set; }
+        public int ID { get; set; }        
 
         //Foreign Keys
         public int NotificationTypeID { get; set; }
 
         public NotificationType NotificationType { get; set; }
+
+        public int MessageID { get; set; }
+
+        public Message Message { get; set; }
 
         //O:M Relationships
 

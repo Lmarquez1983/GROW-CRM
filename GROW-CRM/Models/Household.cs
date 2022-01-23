@@ -1,16 +1,16 @@
+using GROW_CRM.Models.Utilities;
 using System.Collections.Generic;
 
 namespace GROW_CRM.Models
 {
-    public class Household
+    public class Household : Auditable
     {
         //Constructor
         Household()
         {
             Members = new HashSet<Member>();
             HouseholdDocuments = new HashSet<HouseholdDocument>();
-            HouseholdNotifications = new HashSet<HouseholdNotification>();
-            Orders = new HashSet<Order>();
+            HouseholdNotifications = new HashSet<HouseholdNotification>();            
         }
 
         //Fields
@@ -41,8 +41,6 @@ namespace GROW_CRM.Models
 
         public ICollection<HouseholdDocument> HouseholdDocuments { get; set; }
 
-        public ICollection<HouseholdNotification> HouseholdNotifications { get; set; }
-
-        public ICollection<Order> Orders { get; set; } 
+        public ICollection<HouseholdNotification> HouseholdNotifications { get; set; }         
     }
 }

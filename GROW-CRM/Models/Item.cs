@@ -1,8 +1,9 @@
+using GROW_CRM.Models.Utilities;
 using System.Collections.Generic;
 
 namespace GROW_CRM.Models
 {
-    public class Item
+    public class Item : Auditable
     {
         //Constructor
         public Item()
